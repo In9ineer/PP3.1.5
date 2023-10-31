@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Users List</title>
+</head>
+<body>
+Ustrs List
+<br/><br/>
+
+<a href="/addUser">Add user</a>
+
+<br/>
+<hr/>
+
+<div>
+  <table>
+    <thead>
+    <tr>
+      <th style="padding: 20px;">Id</th>
+      <th style="padding: 20px;">User Name</th>
+      <th style="padding: 20px;">Password</th>
+      <th style="padding: 20px;">@Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${UserTable}">
+      <td style="padding: 20px;" th:text="${user.id}"></td>
+      <td style="padding: 20px;"><a th:href="@{/editUser/{id}(id=${user.id})}" th:text="${user.firstName}"></a></td>
+      <td style="padding: 20px;" th:text="${user.lastName}"></td>
+      <td style="padding: 20px;" th:text="${user.email}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
