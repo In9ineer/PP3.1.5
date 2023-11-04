@@ -1,13 +1,13 @@
 package ru.kata.spring.boot_security.demo.Dao;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.models.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Component
+@Repository
 public class UserDao {
 
     @PersistenceContext

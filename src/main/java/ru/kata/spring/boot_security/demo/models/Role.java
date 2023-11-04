@@ -1,16 +1,18 @@
 package ru.kata.spring.boot_security.demo.models;
 
 import lombok.Data;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "roles")
 @Data
-public class Role {
+public class Role implements GrantedAuthority {
 
     @Id
     @Column(name = "id")
@@ -20,8 +22,25 @@ public class Role {
     @Column(name = "rolename", nullable = false)
     @NotEmpty(message = "Username should not be empty")
     @Size(min = 2, max = 30, message = "The username must be between 2 and 30 characters")
-    @Pattern(regexp = "[A-Za-z]+", message = "Username should only contain letters")
     private String rolename;
 
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
 
+    public Role() {
+    }
+
+    public Role(Long id) {
+        this.id = id;
+    }
+
+    public Role(Long id, String rolename) {
+        this.id = id;
+        this.rolename = rolename;
+    }
+
+    @Override
+    public String getAuthority() {
+        return getRolename();
+    }
 }

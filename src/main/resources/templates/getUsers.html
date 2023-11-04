@@ -27,13 +27,18 @@ Ustrs List
     <tbody>
     <tr th:each="user : ${UserTable}">
       <td style="padding: 20px;" th:text="${user.id}"></td>
-      <td style="padding: 20px;"><a th:href="@{/editUser/{id}(id=${user.id})}" th:text="${user.firstName}"></a></td>
-      <td style="padding: 20px;" th:text="${user.lastName}"></td>
+      <td style="padding: 20px;"><a th:href="@{/editUser/{id}(id=${user.id})}" th:text="${user.username}"></a></td>
+      <td style="padding: 20px;" th:text="${user.password}"></td>
       <td style="padding: 20px;" th:text="${user.email}"></td>
     </tr>
     </tbody>
   </table>
 </div>
+<br/><br/>
+
+<form th:action="@{/logout}" th:method="POST">
+  <input type="submit" value="Logout">
+</form>
 
 </body>
 </html>

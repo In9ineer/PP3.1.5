@@ -1,20 +1,19 @@
 package ru.kata.spring.boot_security.demo.models;
 
-//import jakarta.persistence.*;
-//import jakarta.validation.constraints.Email;
-//import jakarta.validation.constraints.NotEmpty;
-//import jakarta.validation.constraints.Pattern;
-//import jakarta.validation.constraints.Size;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails{
 
     @Id
     @Column(name = "id")
@@ -34,6 +33,14 @@ public class User {
     @Column(name = "email")
     @Email(message = "Invalid email format")
     private String email;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "User_Role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<Role> roles;
 
     public User() {
     }
@@ -56,8 +63,33 @@ public class User {
         return username;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return getRoles();
     }
 
     public String getPassword() {
@@ -74,6 +106,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
