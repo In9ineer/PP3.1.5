@@ -26,6 +26,10 @@ public class UserDao {
         return entityManager.find(User.class, id);
     }
 
+    public User getUserByUsername(String username) {
+        return entityManager.find(User.class, username);
+    }
+
     public void update(long id, User updateUser) {
         User userToBeUpdate = entityManager.find(User.class, id);
 

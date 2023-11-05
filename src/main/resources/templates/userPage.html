@@ -8,15 +8,16 @@
 <h1>Welcome to the user page!</h1>
 <br/><br/>
 
-<!--<h2>Your details: </h2>-->
-<!--<p th:text="'Username: ' + ${user.getUsername()}"></p>-->
-<!--<p th:text="'Password: ' + ${user.getPassword()}"></p>-->
-<!--<p th:text="'Email: ' + ${user.getEmail()}"></p>-->
-<!--<br/><br/>-->
+<h2>Your details: </h2>
+<p th:text="'ID: ' + ${user.getId()}"></p>
+<p th:text="'Username: ' + ${user.getUsername()}"></p>
+<p th:text="'Password: ' + ${user.getPassword()}"></p>
+<p th:text="'Email: ' + ${user.getEmail()}"></p>
+<br/><br/>
 
-<!--<form th:action="@{/logout}" th:method="POST">-->
-<!--    <input type="submit" value="Logout">-->
-<!--</form>-->
+<form th:action="@{/logout}" th:method="POST">
+    <input type="submit" value="Logout">
+</form>
 
 </body>
 </html>

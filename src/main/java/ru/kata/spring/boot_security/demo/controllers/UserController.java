@@ -1,7 +1,8 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_security.demo.security.UserDetailsImpl;
+import ru.kata.spring.boot_security.demo.services.UserDetailsServiceImpl;
 import ru.kata.spring.boot_security.demo.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,8 +24,11 @@ import java.security.Principal;
 public class UserController {
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    private final UserDetailsServiceImpl userDetailsService;
+
+    public UserController(UserService userService, UserDetailsServiceImpl userDetailsService) {
         this.userService = userService;
+        this.userDetailsService = userDetailsService;
     }
 
     @GetMapping(value = "/")
@@ -70,21 +76,34 @@ public class UserController {
     }
 
 //    @GetMapping("/userPage")
-//    public String userPage(Model model, Principal principal) {
-//        String username = principal.getName();
-//        User user = userService.findByUsername(username);
-//        model.addAttribute("user", user);
+//    public String userPage() {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+//        System.out.println(userDetails.getUser());
+//
 //        return "userPage";
 //    }
 
     @GetMapping("/userPage")
-    public String userPage() {
+    public String userPage(Model model, Principal principal) {
+        String username = principal.getName();
+        User user = (User) userDetailsService.loadUserByUsername(username);
+        model.addAttribute("user", user);
         return "userPage";
     }
 
+//    @GetMapping()
+//    public String userPage(Model model) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+//        User user = (User) userDetailsService.loadUserByUsername(userDetails.getUsername());
+//        model.addAttribute("user", user);
+//        return "user";
+//    }
+
 //    @GetMapping("/userPage")
-//    public String userPage(Model model, @PathVariable("id") long id) {
-//        model.addAttribute("user", userService.getUserById(id));
+//    public String userPage(Model model) {
+//        model.addAttribute("user", userService.getUserById(model));
 //
 //        return "userPage";
 //    }
