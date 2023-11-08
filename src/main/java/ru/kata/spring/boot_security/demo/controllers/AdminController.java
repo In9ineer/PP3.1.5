@@ -1,31 +1,26 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.services.UserDetailsServiceImpl;
 import ru.kata.spring.boot_security.demo.services.UserService;
-import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.validator.UserValidator;
 
 import javax.validation.Valid;
 import java.security.Principal;
 
-@Controller
-@RequestMapping("/")
-public class UserController {
+public class AdminController {
+
     private final UserService userService;
     private final UserValidator userValidator;
     private final UserDetailsServiceImpl userDetailsService;
 
     @Autowired
-    public UserController(UserService userService, UserValidator userValidator, UserDetailsServiceImpl userDetailsService) {
+    public AdminController(UserService userService, UserValidator userValidator, UserDetailsServiceImpl userDetailsService) {
         this.userService = userService;
         this.userValidator = userValidator;
         this.userDetailsService = userDetailsService;
@@ -87,5 +82,4 @@ public class UserController {
         model.addAttribute("user", user);
         return "userPage";
     }
-
 }

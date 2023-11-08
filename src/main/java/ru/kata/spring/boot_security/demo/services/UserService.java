@@ -9,9 +9,9 @@ public interface UserService {
 
     void save(User user);
 
-    User getUserById(long id);
+    User getUserById(Long id);
 
-    public User getUserBeUsername(String username);
+    public User getUserByUsername(String username);
 
     void update(long id, User updateUser);
 
