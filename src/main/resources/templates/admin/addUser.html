@@ -11,7 +11,7 @@ Sdes dobavleybt user
 <a href="/admin">Go to user list</a>
 <br/><br/>
 
-<form th:method="POST" th:action="@{/createUser}" th:object="${user}">
+<form th:method="POST" th:action="@{/admin/createUser}" th:object="${user}">
   <label for="username">Username &nbsp</label>
   <input th:field="*{username}" type="text" id="username"/>
   <div style="color: red;" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>

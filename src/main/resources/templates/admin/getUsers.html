@@ -9,7 +9,7 @@
 Ustrs List
 <br/><br/>
 
-<a href="admin/addUser">Add user</a>
+<a href="/admin/addUser">Add user</a>
 
 <br/>
 <hr/>
@@ -27,7 +27,7 @@ Ustrs List
     <tbody>
     <tr th:each="user : ${UserTable}">
       <td style="padding: 20px;" th:text="${user.id}"></td>
-      <td style="padding: 20px;"><a th:href="@{admin/editUser/{id}(id=${user.id})}" th:text="${user.username}"></a></td>
+      <td style="padding: 20px;"><a th:href="@{/admin/editUser/{id}(id=${user.id})}" th:text="${user.username}"></a></td>
       <td style="padding: 20px;" th:text="${user.password}"></td>
       <td style="padding: 20px;" th:text="${user.email}"></td>
     </tr>

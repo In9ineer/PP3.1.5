@@ -11,7 +11,7 @@ Editing a user
 <a href="/admin">Go to user list</a>
 <br/><br/>
 
-<form th:method="PATCH" th:action="@{/{id}(id=${user.getId()})}" th:object="${user}">
+<form th:method="PATCH" th:action="@{/admin/{id}(id=${user.getId()})}" th:object="${user}">
     <th style="padding: 20px;">ID</th>
     <td th:text="${user.id}"></td>
     <br/><br/>
@@ -42,7 +42,7 @@ Editing a user
 <br/><br/>
 <hr/>
 
-<form th:method="DELETE" th:action="@{/{id}(id=${user.getId()})}">
+<form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
     <input type="submit" value="Delete"/>
 </form>
 <br/><br/>
