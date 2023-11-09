@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.kata.spring.boot_security.demo.services.UserDetailsServiceImpl;
@@ -25,7 +26,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        auth.userDetailsService(userDetailsService)
+                .passwordEncoder(getPasswordEncoder());
     }
 
     @Override
@@ -33,25 +35,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()                              //для работы без токена
                 .authorizeRequests()
-                .antMatchers("getUsers").hasRole("ADMIN")
-                .antMatchers("userPage").hasRole("USER")
+                .antMatchers("admin**").hasRole("ADMIN")
+                .antMatchers("user**").hasRole("USER")
                 .antMatchers("/login", "/error").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login")
                 .loginProcessingUrl("/process_login")
-                .defaultSuccessUrl("/", true)
+                .defaultSuccessUrl("/admin", true)
                 .failureUrl("/login?error")
                 .and()
                 .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/");
-
     }
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 
 }

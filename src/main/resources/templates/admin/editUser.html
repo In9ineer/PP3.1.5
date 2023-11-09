@@ -8,7 +8,7 @@
 <body>
 Editing a user
 
-<a href="/">Go to user list</a>
+<a href="/admin">Go to user list</a>
 <br/><br/>
 
 <form th:method="PATCH" th:action="@{/{id}(id=${user.getId()})}" th:object="${user}">
@@ -31,7 +31,7 @@ Editing a user
     <div style="color: red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
     <br/><br/>
 
-    <label for="roles">Email &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+    <label for="roles">Role &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
     <input type="text" th:field="*{roles}" id="roles"/>
     <div style="color: red;" th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}"></div>
     <br/><br/>

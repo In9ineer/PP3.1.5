@@ -6,7 +6,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -27,7 +26,7 @@ public class User implements UserDetails{
     private String username;
 
     @Column(name = "password")
-    @Size(min = 3, max = 12, message = "The password must be between 6 and 12 characters")
+    @Size(min = 3, message = "At least 3 symbols")
     private String password;
 
     @Column(name = "email")
@@ -50,6 +49,14 @@ public class User implements UserDetails{
         this.password = password;
         this.email = email;
     }
+
+//    public User(Long id, String username, String password, String email, Set<Role> roles) {
+//        this.id = id;
+//        this.username = username;
+//        this.password = password;
+//        this.email = email;
+//        this.roles = roles;
+//    }
 
     public Long getId() {
         return id;
