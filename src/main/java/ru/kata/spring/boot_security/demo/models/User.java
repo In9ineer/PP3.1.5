@@ -11,6 +11,7 @@ import java.util.Set;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 
 @Entity
 @Table(name = "users")
@@ -34,7 +35,8 @@ public class User implements UserDetails{
     @Email(message = "Invalid email format")
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+//    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -88,6 +90,7 @@ public class User implements UserDetails{
     }
 
     @Override
+    @Transactional
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
     }
@@ -112,6 +115,7 @@ public class User implements UserDetails{
         return roles;
     }
 
+    @Transactional
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }

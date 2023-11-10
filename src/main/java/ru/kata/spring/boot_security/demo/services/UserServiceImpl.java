@@ -53,17 +53,12 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public void update(long id, User updateUser) {
-        User userToBeUpdate = entityManager.find(User.class, id);
-
-        userToBeUpdate.setUsername(updateUser.getUsername());
-        userToBeUpdate.setPassword(updateUser.getPassword());
-        userToBeUpdate.setEmail(updateUser.getEmail());
+        userDao.save(updateUser);
     }
 
     @Override
     @Transactional
     public void delete(long id) {
-        User user = entityManager.find(User.class, id);
-        entityManager.remove(user);
+        userDao.deleteById(id);
     }
 }

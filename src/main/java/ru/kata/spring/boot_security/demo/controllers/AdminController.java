@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -49,12 +50,14 @@ public class AdminController {
         return "redirect:/admin";
     }
 
+    @Transactional
     @GetMapping("/editUser/{id}")
     public String editUser(Model model, @PathVariable("id") long id) {
         model.addAttribute("user", userService.getUserById(id));
         return "admin/editUser";
     }
 
+    @Transactional
     @PatchMapping("/{id}")
     public String update (@ModelAttribute("user") @Valid User user, BindingResult result, @PathVariable("id") long id) {
         if (result.hasErrors()) {

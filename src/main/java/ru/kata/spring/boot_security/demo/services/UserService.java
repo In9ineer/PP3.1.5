@@ -9,7 +9,7 @@ public interface UserService {
 
     void save(User user);
 
-    User getUserById(Long id);
+    User getUserById(long id);
 
     public User getUserByUsername(String username);
 
