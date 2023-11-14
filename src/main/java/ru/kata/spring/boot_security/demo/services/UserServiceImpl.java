@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.services;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,6 @@ public class UserServiceImpl implements UserService{
 
     private final UserRepository userDao;
     private final PasswordEncoder passwordEncoder;
-
-    @PersistenceContext
-    private EntityManager entityManager;
 
     @Autowired
     public UserServiceImpl(UserRepository userDao, PasswordEncoder passwordEncoder) {
@@ -46,9 +44,25 @@ public class UserServiceImpl implements UserService{
         return userDao.getById(id);
     }
 
+//    @Override
+//    @Transactional(readOnly = true)
+//    public User getUserById(long id) {
+//        User user = userDao.getById(id);
+//        Hibernate.initialize(user);
+//        return user;
+//    }
+
     @Override
     @Transactional(readOnly = true)
     public User getUserByUsername(String username) { return userDao.findUserByUsername(username); }
+
+//    @Override
+//    @Transactional(readOnly = true)
+//    public User getUserByUsername(String username) {
+//        User user = userDao.findUserByUsername(username);
+//        Hibernate.initialize(user);
+//        return user;
+//    }
 
     @Override
     @Transactional

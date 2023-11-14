@@ -36,14 +36,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable()                              //для работы без токена
                 .authorizeRequests()
-                .antMatchers("admin**").hasRole("ADMIN")
-                .antMatchers("user**").hasRole("USER")
+                .antMatchers("/admin**").hasRole("ADMIN")
+                .antMatchers("/user**").hasRole("USER")
                 .antMatchers("/login", "/error").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login")
                 .loginProcessingUrl("/process_login")
-                .defaultSuccessUrl("/admin", true)
+                .successHandler(successUserHandler)
                 .failureUrl("/login?error")
                 .and()
                 .logout()

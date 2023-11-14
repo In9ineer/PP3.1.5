@@ -59,7 +59,7 @@ public class AdminController {
 
     @Transactional
     @PatchMapping("/{id}")
-    public String update (@ModelAttribute("user") @Valid User user, BindingResult result, @PathVariable("id") long id) {
+    public String update(@ModelAttribute("user") @Valid User user, BindingResult result, @PathVariable("id") long id) {
         if (result.hasErrors()) {
             return "admin/editUser";
         }

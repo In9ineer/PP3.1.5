@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.validator;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +29,11 @@ public class UserValidator implements Validator {
     @Transactional
     public void validate(Object target, Errors errors) {
         User user = (User) target;
+
+
+        Hibernate.initialize(user);
+
+
         String username = user.getUsername();
 
         User existingUser = userService.getUserByUsername(username);
