@@ -30,10 +30,6 @@ public class UserValidator implements Validator {
     public void validate(Object target, Errors errors) {
         User user = (User) target;
 
-
-        Hibernate.initialize(user);
-
-
         String username = user.getUsername();
 
         User existingUser = userService.getUserByUsername(username);
