@@ -49,14 +49,12 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @Transactional
     @GetMapping("/editUser/{id}")
     public String editUser(Model model, @PathVariable("id") long id) {
         model.addAttribute("user", userService.getUserById(id));
         return "admin/editUser";
     }
 
-    @Transactional
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") @Valid User user, BindingResult result, @PathVariable("id") long id) {
         if (result.hasErrors()) {

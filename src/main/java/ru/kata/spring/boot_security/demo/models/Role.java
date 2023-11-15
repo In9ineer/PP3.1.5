@@ -23,10 +23,6 @@ public class Role implements GrantedAuthority {
     @Size(min = 2, max = 30, message = "The username must be between 2 and 30 characters")
     private String rolename;
 
-    @ManyToMany(mappedBy = "roles")
-    @Transient
-    private Set<User> users;
-
     public Role() {
     }
 
@@ -37,7 +33,6 @@ public class Role implements GrantedAuthority {
     public Role(Long id, String rolename, Set<User> users) {
         this.id = id;
         this.rolename = rolename;
-        this.users = users;
     }
 
     @Override

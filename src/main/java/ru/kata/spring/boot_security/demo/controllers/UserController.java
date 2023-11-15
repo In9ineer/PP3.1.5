@@ -22,7 +22,6 @@ public class UserController {
         this.userDetailsService = userDetailsService;
     }
 
-    @Transactional
     @GetMapping("/user")
     public String userPage(Model model, Principal principal) {
         String username = principal.getName();
