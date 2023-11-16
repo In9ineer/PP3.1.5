@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService{
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userDao, RoleServise roleServise, PasswordEncoder passwordEncoder, UserRepository userRepository) {
+    public UserServiceImpl(UserRepository userDao, RoleServise roleServise, PasswordEncoder passwordEncoder) {
         this.userDao = userDao;
         this.roleServise = roleServise;
         this.passwordEncoder = passwordEncoder;
@@ -28,15 +28,17 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional(readOnly = true)
     public List<User> getUsers() {
-        return userDao.findAll();
+        List<User> users = userDao.findAll();
+        for (User user : users) {
+            user.getRoles().size();
+        }
+        return users;
     }
-
 
     @Override
     @Transactional
     public void save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-
         user.setRoles(new HashSet<>(Collections.singletonList(roleServise.getRoleById(1L))));
 
         userDao.save(user);
@@ -48,10 +50,11 @@ public class UserServiceImpl implements UserService{
         return userDao.getById(id);
     }
 
-
     @Override
     @Transactional(readOnly = true)
-    public User getUserByUsername(String username) { return userDao.findUserByUsername(username); }
+    public User getUserByUsername(String username) {
+        return userDao.findUserByUsername(username);
+    }
 
     @Override
     @Transactional
