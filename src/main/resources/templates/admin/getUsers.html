@@ -17,55 +17,83 @@
 <!--Верхний блок, полоска с именем, ролью и выход-->
 <nav class="navbar navbar-dark bg-dark">
   <div class="container-fluid">
-<!--    <form class="d-flex" th:action="@{/user}" th:method="GET">-->
     <div class="navbar-brand" th:text="${user.username  + ' With roles:' + user.getRoleString()}"></div>
-<!--    </form>-->
 
     <form class="d-flex" th:action="@{/logout}" th:method="POST">
       <button class="btn btn-outline-light" type="submit">Logout</button>
     </form>
   </div>
-</nav>
+</nav><br/>
 
-
-
-Ustrs List
-<br/><br/>
 
 <a href="/admin/addUser">Add user</a>
 
-<br/>
 <hr/>
 
-<div>
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th>Id</th>
-      <th>User Name</th>
-      <th>@Email</th>
-      <th>Role</th>
-      <th>Edit</th>
-      <th>Delite</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${UserTable}">
-      <td th:text="${user.id}"></td>
-      <td><a th:href="@{/admin/editUser/{id}(id=${user.id})}" th:text="${user.username}"></a></td>
-      <td th:text="${user.email}"></td>
-      <td th:text="${user.getRoleString()}"></td>
-      <td th:text="Edit"></td>
-      <td th:text="Delite"></td>
-    </tr>
-    </tbody>
-  </table>
-</div>
-<br/><br/>
 
-<form th:action="@{/logout}" th:method="POST">
-  <input type="submit" value="Logout">
-</form>
+
+
+<!--Вкладки Admin b User-->
+<div class="nav-item">
+  <div class="row">
+    <div class="col-2">
+      <ul class="nav nav-tabs flex-column" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="admin-tab" data-toggle="tab" href="#admin" role="tab" aria-controls="admin" aria-selected="true">Admin</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="user-tab" data-toggle="tab" href="#user" role="tab" aria-controls="user" aria-selected="false">User</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-10">
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="admin" role="tabpanel" aria-labelledby="admin-tab">
+          <!-- Содержимое для вкладки "Admin" -->
+
+          <!--Таблица с юзерами-->
+          <div>
+            <table class="table table-striped">
+              <thead>
+              <tr>
+                <th>Id</th>
+                <th>User Name</th>
+                <th>@Email</th>
+                <th>Role</th>
+                <th>Edit</th>
+                <th>Delite</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr th:each="user : ${UserTable}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.getRoleString()}"></td>
+                <td><a th:href="@{/admin/editUser/{id}(id=${user.id})}" style="background-color: #00CED1; color: white; border-radius: 5px; padding: 5px 10px; text-decoration: none; display: inline-block; width: 100px; text-align: center;">Edit</a></td>
+                <td><button style="background-color: #FF0000; color: white; border-radius: 5px; padding: 5px 10px; display: inline-block; width: 100px; text-align: center;">Delete</button></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <br/>
+          <h1>Admin Tab Content</h1>
+          <p>This is the content for the Admin tab.</p>
+        </div>
+        <div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="user-tab">
+          <!-- Содержимое для вкладки "User" -->
+          <h1>User Tab Content</h1>
+          <p>This is the content for the User tab.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 </body>
 </html>
