@@ -79,4 +79,15 @@ public class User implements UserDetails{
         return getRoles();
     }
 
+    public String getRoleString() {
+        String r = " ";
+        if ((getRoles().toString()).contains("ROLE_ADMIN")) {
+            r = r + "ADMIN ";
+        }
+        if ((getRoles().toString()).contains("ROLE_USER")) {
+            r = r + "USER ";
+        }
+        return r;
+    }
+
 }
