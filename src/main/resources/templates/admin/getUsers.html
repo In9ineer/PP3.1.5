@@ -101,26 +101,18 @@
                     <td th:text="${user.email}"></td>
                     <td th:text="${user.getRoleString()}"></td>
 
-
                     <td><button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Edit</button></td>
-<!--                    <td><a th:href="@{/admin/editUser/{id}(id=${user.id})}" style="background-color: #00CED1; color: white; border-radius: 5px; padding: 5px 10px; text-decoration: none; display: inline-block; width: 100px; text-align: center;">Edit</a></td>-->
-
 
                     <td><form th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
                       <input type="submit" value="Delete" style="background-color: #FF0000; color: white; border-radius: 5px; padding: 5px 10px; display: inline-block; width: 100px;"/>
                     </form></td>
-<!--                    <td><button style="background-color: #FF0000; color: white; border-radius: 5px; padding: 5px 10px; display: inline-block; width: 100px; text-align: center;">Delete</button></td>-->
                   </tr>
                   </tbody>
                 </table>
               </div>
             </div>
 
-
-
             <!-- Button to trigger modal edit user-->
-<!--            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Открыть форму</button>-->
-
             <!-- Modal edin user-->
             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-dialog" role="document">
@@ -145,11 +137,6 @@
                       <div style="color: red;" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
                       <br/><br/>
 
-<!--                      <label for="password">Password &nbsp&nbsp&nbsp&nbsp</label>-->
-<!--                      <input type="text" th:field="*{password}" id="password"/>-->
-<!--                      <div style="color: red;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>-->
-<!--                      <br/><br/>-->
-
                       <label for="email">Email &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
                       <input type="text" th:field="*{email}" id="email"/>
                       <div style="color: red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
@@ -157,22 +144,13 @@
 
                       <input type="submit" value="Update!"/>
                     </form>
-
-<!--                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>-->
                   </div>
                 </div>
               </div>
             </div>
 
-
-
-
             <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
               <!--Содержимое вкладки New User-->
-
-
-
-
               <div class="card">
                 <div class="card-header">
                   <h3>Add new user</h3>
@@ -183,17 +161,14 @@
                       <div class="form-group">
                         <label for="usernamef">Username</label>
                         <input name="username" type="text" class="form-control form-control-sm" id="usernamef" placeholder="username">
-<!--                        <div style="color: red;" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>-->
                       </div>
                       <div class="form-group">
                         <label for="password">Password</label>
                         <input name="password" type="password" class="form-control form-control-sm" id="password" aria-describedby="emailHelp" placeholder="Password">
-<!--                        <div style="color: red;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>-->
                       </div>
                       <div class="form-group">
                         <label for="exampleInputEmail2">Email</label>
                         <input name="email" type="email" class="form-control form-control-sm" id="exampleInputEmail2" aria-describedby="emailHelp" placeholder="Email">
-<!--                        <div style="color: red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>-->
                       </div>
                       <div class="form-group">
                         <label>Role</label>
@@ -208,45 +183,14 @@
                       <br/>
                       <button type="submit" class="btn btn-success">Add User</button>
                     </form>
-
-
                   </blockquote>
                 </div>
               </div>
-
-
-
-
-<!--              <body><br/>-->
-
-<!--              <form th:method="POST" th:action="@{/admin/createUser}" th:object="${f}">-->
-<!--                <label for="username">Username &nbsp</label>-->
-<!--                <input th:field="*{username}" type="text" id="username"/>-->
-<!--                <div style="color: red;" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>-->
-<!--                <br/><br/>-->
-
-<!--                <label for="password">Password &nbsp&nbsp</label>-->
-<!--                <input th:field="*{password}" type="text" id="password"/>-->
-<!--                <div style="color: red;" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>-->
-<!--                <br/><br/>-->
-
-<!--                <label for="email">Email &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>-->
-<!--                <input th:field="*{email}" type="text" id="email"/>-->
-<!--                <div style="color: red;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>-->
-<!--                <br/><br/>-->
-<!--                <input type="submit" class="btn-success" value="Add User"/>-->
-<!--              </form>-->
-<!--              <br/>-->
-<!--              </body>-->
             </div>
-
           </div>
-
-
-
-
           <br/>
         </div>
+
         <div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="user-tab">
 
           <!-- Содержимое для вкладки "User" -->
