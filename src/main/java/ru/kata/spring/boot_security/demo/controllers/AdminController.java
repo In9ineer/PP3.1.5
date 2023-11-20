@@ -42,11 +42,11 @@ public class AdminController {
 
     @GetMapping("/addUser")
     public String addUser(@ModelAttribute("user") User user) {
-        return "admin/addUser";
+        return "admin/getUsers";
     }
 
-    @PostMapping("/createUser")
-    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult result) {
+    @PostMapping()
+    public String createUser(@ModelAttribute("f") @Valid User user, BindingResult result) {
         userValidator.validate(user, result);
         if (result.hasErrors()) {
             return "admin/addUser";
@@ -65,7 +65,7 @@ public class AdminController {
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") @Valid User user, BindingResult result, @PathVariable("id") long id) {
         if (result.hasErrors()) {
-            return "admin/editUser";
+            return "admin/getUsers";
         }
 
         userService.update(user);
