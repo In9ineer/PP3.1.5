@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService{
         User existingUser = userDao.findById(updateUser.getId()).orElse(null);
         if (existingUser != null) {
             existingUser.setUsername(updateUser.getUsername());
-            existingUser.setPassword(updateUser.getPassword());
+//            existingUser.setPassword(updateUser.getPassword());
             existingUser.setEmail(updateUser.getEmail());
             userDao.save(existingUser);
         }
