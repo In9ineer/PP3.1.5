@@ -62,7 +62,7 @@ public class AdminController {
         return "admin/getUsers";
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") @Valid User user, BindingResult result, @PathVariable("id") long id) {
         if (result.hasErrors()) {
             return "admin/getUsers";
