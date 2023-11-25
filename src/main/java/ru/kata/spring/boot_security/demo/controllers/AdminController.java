@@ -49,7 +49,7 @@ public class AdminController {
     public String createUser(@ModelAttribute("f") @Valid User user, BindingResult result) {
         userValidator.validate(user, result);
         if (result.hasErrors()) {
-            return "admin/addUser";
+            return "admin/getUsers";
         }
 
         userService.save(user);

@@ -10,6 +10,7 @@ import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -48,6 +49,12 @@ public class UserServiceImpl implements UserService{
     @Transactional(readOnly = true)
     public User getUserById(long id) {
         return userDao.getById(id);
+    }
+
+    @Transactional(readOnly = true)
+    public User findOne(long id) {
+        Optional<User> foundUser = userDao.findById(id);
+        return foundUser.orElse(null);
     }
 
     @Override
