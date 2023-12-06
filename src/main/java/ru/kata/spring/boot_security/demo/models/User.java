@@ -1,56 +1,57 @@
 package ru.kata.spring.boot_security.demo.models;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Collection;
-import java.util.Set;
+import java.util.stream.Collectors;
 
-import lombok.Data;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-@Data
 @Entity
 @Table(name = "users")
-public class User implements UserDetails{
-
+public class User implements UserDetails {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username", nullable = false, unique = true)
-    @NotEmpty(message = "Username should not be empty")
-    @Size(min = 2, max = 30, message = "The username must be between 2 and 30 characters")
+    @NotEmpty(message = "Имя не должно быть пустым")
+    @Size(min = 2, max = 100, message = "Имя должно быть от 2 до 100 символов длиной")
+    @Column(name = "username")
     private String username;
 
     @Column(name = "password")
-    @Size(min = 3, message = "Minimum 3 characters")
     private String password;
 
+    @NotEmpty(message = "Емейл не должен быть пустым")
+    @Size(min = 2, max = 100, message = "Емейл должен быть от 2 до 100 символов длиной")
     @Column(name = "email")
-    @Email(message = "Invalid email format")
     private String email;
 
-//    @ManyToMany(fetch = FetchType.EAGER)
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_role",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles;
-
-    public User() {
+    public Collection<Role> getRoles() {
+        return roles;
     }
 
-    public User(String username, String password, String email, Set<Role> roles) {
-        this.username = username;
-        this.password = password;
-        this.email = email;
+    public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     @Override
@@ -73,20 +74,48 @@ public class User implements UserDetails{
         return true;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
     }
 
-    public String getRoleString() {
-        String r = " ";
-        if ((getRoles().toString()).contains("ROLE_ADMIN")) {
-            r = r + "ADMIN ";
-        }
-        if ((getRoles().toString()).contains("ROLE_USER")) {
-            r = r + "USER ";
-        }
-        return r;
+    public String getEmail() {
+        return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public User() {
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public String roleToString(){
+        StringBuilder sb = new StringBuilder();
+        for(Role role: roles){
+            sb.append(role.getName()).append(" ");
+        }
+        return sb.toString();
+    }
+
+    public String getRole() {
+        String rolesString = roles.stream()
+                .map(Role::getName)
+                .collect(Collectors.joining(", "));
+        return rolesString;
+
+    }
 }

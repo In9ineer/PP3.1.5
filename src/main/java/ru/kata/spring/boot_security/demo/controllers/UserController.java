@@ -6,25 +6,26 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.kata.spring.boot_security.demo.models.User;
-import ru.kata.spring.boot_security.demo.services.UserDetailsServiceImpl;
 
 import java.security.Principal;
 
-@Controller
-@RequestMapping("/")
-public class UserController {
+import org.springframework.web.bind.annotation.ModelAttribute;
+import ru.kata.spring.boot_security.demo.services.UserService;
 
-    private final UserDetailsServiceImpl userDetailsService;
+@Controller
+@RequestMapping("/user")
+public class UserController {
+    private final UserService userService;
 
     @Autowired
-    public UserController(UserDetailsServiceImpl userDetailsService) {
-        this.userDetailsService = userDetailsService;
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping({"/user"})
-    public String userPage(Model model, Principal principal) {
-        String username = principal.getName();
-        User user = (User) userDetailsService.loadUserByUsername(username);
+
+    @GetMapping({"", "/"})
+    public String showUser(Model model, @ModelAttribute("flashMessage") String flashAttribute, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
         model.addAttribute("user", user);
         return "user";
     }

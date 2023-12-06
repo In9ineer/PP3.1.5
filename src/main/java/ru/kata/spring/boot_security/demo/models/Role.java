@@ -1,42 +1,69 @@
 package ru.kata.spring.boot_security.demo.models;
 
-import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
-import java.util.Set;
+import java.util.Objects;
 
 @Entity
 @Table(name = "roles")
-@Data
 public class Role implements GrantedAuthority {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "rolename", nullable = false)
-    @NotEmpty(message = "Username should not be empty")
-    @Size(min = 2, max = 30, message = "The username must be between 2 and 30 characters")
-    private String rolename;
+    @Column(name = "name")
+    private String name;
 
-    public Role() {
+    public Long getId() {
+        return id;
     }
 
-    public Role(String rolename) {
-        this.rolename = rolename;
-    }
-
-    public Role(Long id, String rolename, Set<User> users) {
+    public void setId(Long id) {
         this.id = id;
-        this.rolename = rolename;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String toString() {
+        return " " + name + " " ;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String getAuthority() {
-        return getRolename();
+        return getName();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Role role = (Role) o;
+        return Objects.equals(id, role.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    public Role(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Role(String name) {
+        this.name = name;
+    }
+
+    public Role() {
+
     }
 }
