@@ -21,7 +21,7 @@ public class UserController {
         this.userDetailsService = userDetailsService;
     }
 
-    @GetMapping("/user")
+    @GetMapping({"/user"})
     public String userPage(Model model, Principal principal) {
         String username = principal.getName();
         User user = (User) userDetailsService.loadUserByUsername(username);

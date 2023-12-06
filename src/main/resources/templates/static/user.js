@@ -1,5 +1,4 @@
-const userUrl = 'http://localhost:8080/restUser';
-
+const userUrl = 'http://localhost:8080/api/user';
 
 function getUserPage() {
     fetch(userUrl).then(response => response.json()).then(user =>
@@ -21,3 +20,4 @@ function getInformationAboutUser(user) {
 }
 
 getUserPage();
+
