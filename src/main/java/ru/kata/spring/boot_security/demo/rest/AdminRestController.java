@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.rest;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,6 +49,5 @@ public class AdminRestController {
         User user = userService.show(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
-
 
 }

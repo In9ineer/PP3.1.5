@@ -28,6 +28,12 @@ public class User implements UserDetails {
     @Column(name = "email")
     private String email;
 
+    @ManyToMany
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
+
     public Collection<Role> getRoles() {
         return roles;
     }
@@ -35,12 +41,6 @@ public class User implements UserDetails {
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
-
-    @ManyToMany
-    @JoinTable(name = "users_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Collection<Role> roles;
 
     public Long getId() {
         return id;
@@ -52,6 +52,10 @@ public class User implements UserDetails {
 
     public String getUsername() {
         return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
@@ -72,10 +76,6 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     @Override
@@ -101,7 +101,6 @@ public class User implements UserDetails {
     public void setPassword(String password) {
         this.password = password;
     }
-
 
     public String roleToString(){
         StringBuilder sb = new StringBuilder();

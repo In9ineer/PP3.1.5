@@ -1,9 +1,6 @@
 const url = 'http://localhost:8080/restAdmin';
 
-
-
 async function getAllUsers() {
-
 
     setTimeout(() => {
         fetch(url)
@@ -14,7 +11,6 @@ async function getAllUsers() {
     }, 200)
 
 }
-
 
 function fillTable(users) {
 
@@ -48,7 +44,6 @@ function fillTable(users) {
     document.getElementById('adminTableBody').innerHTML = result;
 
 }
-
 
 function editModal(id) {
     fetch(url + '/' + id, {

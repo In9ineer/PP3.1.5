@@ -22,7 +22,6 @@ public class UserController {
         this.userService = userService;
     }
 
-
     @GetMapping({"", "/"})
     public String showUser(Model model, @ModelAttribute("flashMessage") String flashAttribute, Principal principal) {
         User user = userService.findByUsername(principal.getName());

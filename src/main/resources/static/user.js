@@ -1,6 +1,5 @@
 const userUrl = 'http://localhost:8080/restUser';
 
-
 function getUserPage() {
     fetch(userUrl).then(response => response.json()).then(user =>
         getInformationAboutUser(user))
