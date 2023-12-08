@@ -26,6 +26,11 @@ public class UserRestController {
     @GetMapping()
     public ResponseEntity<User> getInfoUser(Principal principal){
         User user = userService.findByUsername(principal.getName());
+
+
+        System.out.println("Ошибка UserRestController: getInfoUser - " + user);
+
+
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

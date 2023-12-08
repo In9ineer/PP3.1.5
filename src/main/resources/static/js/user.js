@@ -12,7 +12,6 @@ function getInformationAboutUser(user) {
         `<tr>
     <th><p>${user.id}</p></th>
     <th><p>${user.username}</p></th>
-
     <th><p>${user.email}</p></th>
     <th><p>${user.roles.map(r => r.name).join(' ')}</p></th>   
     </tr>`
