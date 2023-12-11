@@ -1,6 +1,9 @@
 const url = 'http://localhost:8080/restAdmin';
 
+
+
 async function getAllUsers() {
+
 
     setTimeout(() => {
         fetch(url)
@@ -12,6 +15,7 @@ async function getAllUsers() {
 
 }
 
+
 function fillTable(users) {
 
     let result = '';
@@ -22,7 +26,8 @@ function fillTable(users) {
         <th><p>${user.username}</p></th>
       <th><p>${user.email}</p></th>
   
-        <th><p>${user.roles.map(r => r.name).join(' ')}</p></th>
+        <th><p>${user.roles.map(r => removeRolePrefix(r.name)).join(' ')}</p></th>
+        
         <th>
             <button class="btn btn-info"
                     data-bs-toggle="modal"
@@ -43,6 +48,10 @@ function fillTable(users) {
     }
     document.getElementById('adminTableBody').innerHTML = result;
 
+}
+
+function removeRolePrefix(roleName) {
+    return roleName.replace("ROLE_", "");
 }
 
 function editModal(id) {
@@ -161,6 +170,7 @@ async function addUser() {
         password: addPassword,
         roles: addRoles
     }
+
     await fetch(url, {
         method: "POST",
         headers: {
@@ -169,10 +179,13 @@ async function addUser() {
         body: JSON.stringify(user)
     }).then(() => {
         clearAndHideAddForm();
-        getAllUsers()
-        window.location.reload();
+        getAllUsers();
+
+        // Добавляем переход к вкладке "Users Table"
+        document.getElementById('usersListButton').click();
     })
 }
+
 function clearAndHideAddForm() {
     document.getElementById("addUserName").value = "";
     document.getElementById("addEmail").value = "";

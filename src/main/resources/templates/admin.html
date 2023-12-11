@@ -15,8 +15,7 @@
 <nav class="navbar navbar-dark bg-dark d-flex justify-content-between p-2">
     <span>
     <span class="navbar-brand font-weight-bold" th:text="${authUser.username}"></span>
-    <span class="navbar-brand"
-          th:text="'with roles: ' + ${authUser.role}"></span>
+        <span class="navbar-brand" th:text="'with roles: ' + ${authUser.role.replace('ROLE_', '')}"></span>
     </span>
     <ul class="navbar-nav">
         <li class="nav-item">

@@ -58,7 +58,7 @@ public class UserService implements UserDetailsService {
         user.setPassword(encodedPassword);
         userRepository.save(user);
     }
-    public User show(Long id){ // redone
+    public User show(Long id){
         Optional<User> foundUser = userRepository.findById(id);
 
         return foundUser.orElse(null);
@@ -73,7 +73,7 @@ public class UserService implements UserDetailsService {
         userRepository.save(user);
     }
 
-    @Transactional //redone
+    @Transactional
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
